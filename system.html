@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>류용수 수학 연구소 | 프리미엄 관리 시스템</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Pretendard', sans-serif; background-color: #fdfcfb; }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        .nav-transition { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .active-pill { background-color: #1e1b4b; color: white; transform: scale(1.05); }
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-section { animation: slideIn 0.5s ease-out forwards; }
+    </style>
+
+    <!-- Chosen Palette: Ivory & Midnight Indigo (신뢰감 있고 정갈한 교육 브랜드 이미지) -->
+    <!-- Application Structure Plan: 
+         1. Intro Section: '지속 가능한 실력'이라는 핵심 가치를 전달하는 강렬한 첫인상.
+         2. Navigation: 6단계 시스템을 카테고리별로 탐색할 수 있는 필터형 네비게이션.
+         3. Dynamic Display Area: 선택한 시스템의 상세 설명과 실시간 시각화 데이터(차트/목업)를 결합하여 제시.
+         4. Data-Driven Logic: 단순 텍스트 나열이 아닌, 질문 데이터 분석/시험 분석/학습 밸런스를 차트로 시각화하여 정보의 객관성 확보.
+         5. UX Goal: 학부모가 '우리 아이가 어떻게 관리될지'를 가상 시뮬레이션 하듯 체험하게 함.
+    -->
+    <!-- Visualization & Content Choices:
+         - 관리(Management): HTML/CSS 기반 피드백 메시지 카드 (감성적 신뢰)
+         - 질문(Q&A): Chart.js 가로 막대 차트 (취약 유형 데이터화 강조)
+         - 상담(Consult): 타임라인 UI (정기적 관리의 예측 가능성)
+         - 분석(Exam): Chart.js 레이더 차트 (다각도 분석의 전문성)
+         - 멘토(Mentoring): 정보 그리드 (인적 자원의 우수성)
+         - 밸런스(Balance): Chart.js 도넛 차트 + 슬라이더 (학습 조율 기능 체험)
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="text-slate-900 leading-relaxed">
+
+    <!-- Header & Hero -->
+    <header class="py-12 md:py-20 px-4 bg-gradient-to-b from-indigo-50 to-transparent">
+        <div class="max-w-5xl mx-auto text-center">
+            <h1 class="text-indigo-900 font-extrabold text-lg tracking-widest mb-4 uppercase">Ryu Yong Su Math Lab</h1>
+            <h2 class="text-4xl md:text-6xl font-black text-slate-800 mb-6 leading-tight">
+                안정적인 성장은<br><span class="text-indigo-600 underline decoration-indigo-200 underline-offset-8">관리의 흐름</span>에서 결정됩니다
+            </h2>
+            <p class="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto font-light">
+                단순한 수업을 넘어 오답 정리, 질의응답, 상담, 그리고 전과목 밸런스까지.<br>
+                류용수 연구소만의 독보적인 6단계 통합 관리 시스템을 직접 확인하세요.
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 pb-20">
+        <!-- Interactive Navigation -->
+        <div class="flex flex-wrap justify-center gap-2 mb-12" id="nav-pills">
+            <!-- JS will inject buttons here -->
+        </div>
+
+        <!-- Content Section Container -->
+        <section id="main-display" class="glass-morphism rounded-3xl p-6 md:p-12 shadow-2xl border border-indigo-100 min-h-[600px] flex flex-col justify-center">
+            <!-- JS will inject content here -->
+        </section>
+
+        <!-- Trust Indicator Grid -->
+        <section class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="p-8 rounded-2xl bg-white border border-slate-100 shadow-sm text-center">
+                <div class="text-3xl mb-3">📈</div>
+                <h4 class="font-bold mb-2">데이터 중심 분석</h4>
+                <p class="text-sm text-slate-500">모든 오답과 질문은 수치화되어 학생의 약점을 정확히 타격합니다.</p>
+            </div>
+            <div class="p-8 rounded-2xl bg-white border border-slate-100 shadow-sm text-center">
+                <div class="text-3xl mb-3">📱</div>
+                <h4 class="font-bold mb-2">실시간 밀착 공유</h4>
+                <p class="text-sm text-slate-500">개인별 단톡방을 통해 매일의 학습 상황을 투명하게 보고합니다.</p>
+            </div>
+            <div class="p-8 rounded-2xl bg-white border border-slate-100 shadow-sm text-center">
+                <div class="text-3xl mb-3">⚖️</div>
+                <h4 class="font-bold mb-2">전과목 1등급 전략</h4>
+                <p class="text-sm text-slate-500">수학을 넘어 국어, 영어, 탐구의 밸런스까지 조율하는 고등 전문 입시 파트너.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-indigo-950 text-white py-16">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h3 class="text-2xl font-bold mb-4">류용수 수학 연구소</h3>
+            <p class="text-indigo-200 mb-8">한 명 한 명의 학습 과정이 결실을 맺을 때까지 끝까지 책임지겠습니다.</p>
+            <div class="flex flex-col md:flex-row justify-center gap-6 text-sm">
+                <span>📍 학원 위치: 서울특별시 [상세 주소]</span>
+                <span>📞 상담 문의: 010-[직통 번호]</span>
+                <span>✍️ 상담 주간: 매월 셋째 주 (사전 예약)</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Application Script -->
+    <script>
+        // Content Database
+        const reportData = [
+            {
+                id: 'management',
+                title: '체계적인 관리 프로그램',
+                icon: '📊',
+                intro: '수업 이후의 관리가 진짜 성적을 만듭니다. 우리는 모든 문항을 데이터화하여 기록합니다.',
+                desc: '단순 정답 여부가 아니라 유형, 개념 이해도, 문제 해석 능력을 분석합니다. 모든 과정은 학부모·학생·선생님이 참여하는 전용 단톡방에 실시간 공유되어 학습의 투명성을 보장합니다.',
+                viz: 'message-view',
+                stats: ['오답 정밀 분석률 100%', '누적 숙제 이행도 체크', '실시간 피드백 시스템']
+            },
+            {
+                id: 'qna',
+                title: '문풀(질의응답) 프로그램',
+                icon: '💡',
+                intro: '질문은 학생의 가장 솔직한 약점입니다. 이를 누적하여 학습 데이터를 구축합니다.',
+                desc: '예약된 시간에 방문하여 전문 선생님과 1:1로 진행됩니다. 질문 문항 번호와 취약 포인트는 당일 관리 문자로 안내되며, 필요한 경우 1:1 손글씨 풀이를 제공하여 완전한 이해를 돕습니다.',
+                viz: 'chart-bar',
+                chartLabel: '주간 취약 유형별 질문 빈도 (누적 데이터 예시)'
+            },
+            {
+                id: 'consult',
+                title: '정기 상담 주간 운영',
+                icon: '📅',
+                intro: '단순 성적 확인이 아닌, 과목별 밸런스와 향후 로드맵을 결정하는 중요한 시간입니다.',
+                desc: '매월 셋째 주를 상담 주간으로 운영합니다. 사전 예약을 통해 30분 단위로 진행되며, 현재 학습 상태와 입시 방향성을 점검하는 나침반 역할을 합니다.',
+                viz: 'timeline-view',
+                stats: ['매월 셋째 주 고정 운영', '30분 단위 심층 대면/전화', '개인별 학습 방향 리포트']
+            },
+            {
+                id: 'exam',
+                title: '내신 시험 분석 시스템',
+                icon: '🔍',
+                intro: '시험 당일 분석을 원칙으로 하여 가장 객관적인 난이도와 방향성을 제시합니다.',
+                desc: '선생님의 개인적 의견이 아닌, 실제 시험 문항의 핵심 개념과 까다로운 지점을 분석합니다. 등급컷 예측과 더불어 이후 기말/다음 학기 학습 전략을 즉시 수립할 수 있도록 돕습니다.',
+                viz: 'chart-radar',
+                chartLabel: '최근 내신 시험 문항 분석 지표'
+            },
+            {
+                id: 'mentor',
+                title: '문풀샘 멘토·멘티 프로그램',
+                icon: '🎓',
+                intro: 'SKY, 메디컬 등 상위 4% 이내의 선배들이 전하는 가장 현실적인 공부법입니다.',
+                desc: '희망하는 학교와 학과를 신청하면 해당 진로를 경험한 멘토가 배정됩니다. 학습 계획뿐만 아니라 인강 선택, 슬럼프 극복 등 실질적인 멘토링을 제공합니다.',
+                viz: 'grid-view',
+                stats: ['상위 4% 이내 멘토진', '진로 맞춤형 매칭', '입시 경험 밀착 공유']
+            },
+            {
+                id: 'balance',
+                title: '전과목 1등급 학습 관리',
+                icon: '⚖️',
+                intro: '고등 공부는 과목별 시간 분배의 싸움입니다. 수학을 중심으로 전체의 균형을 잡습니다.',
+                desc: '최근 5등급제 변화에 맞춰 한 과목 몰입으로 인한 다른 과목의 붕괴를 막습니다. 국어, 영어, 탐구 과목의 시간 분배를 조율하여 전체적인 밸런스를 유지하도록 지도합니다.',
+                viz: 'chart-doughnut',
+                chartLabel: '최적의 학습 시간 배분 (슬라이더로 조절 가능)'
+            }
+        ];
+
+        let currentId = 'management';
+        let activeChart = null;
+
+        // Functions
+        function initApp() {
+            renderNav();
+            switchTab('management');
+        }
+
+        function renderNav() {
+            const nav = document.getElementById('nav-pills');
+            nav.innerHTML = reportData.map(item => `
+                <button onclick="switchTab('${item.id}')" 
+                        id="btn-${item.id}"
+                        class="nav-transition px-5 py-2 rounded-full border border-indigo-100 bg-white text-slate-600 font-semibold text-sm hover:shadow-md">
+                    ${item.icon} ${item.title}
+                </button>
+            `).join('');
+        }
+
+        function switchTab(id) {
+            currentId = id;
+            const data = reportData.find(d => d.id === id);
+            
+            // Update Nav Styles
+            document.querySelectorAll('#nav-pills button').forEach(btn => btn.classList.remove('active-pill'));
+            document.getElementById(`btn-${id}`).classList.add('active-pill');
+
+            // Render Content
+            const display = document.getElementById('main-display');
+            display.innerHTML = `
+                <div class="animate-section grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <span class="text-indigo-600 font-bold tracking-widest uppercase text-sm">${data.icon} System Focus</span>
+                        <h3 class="text-3xl md:text-4xl font-extrabold text-slate-800 mt-2 mb-6">${data.title}</h3>
+                        <p class="text-indigo-900 font-semibold mb-4 text-lg italic">"${data.intro}"</p>
+                        <p class="text-slate-600 leading-relaxed mb-8">${data.desc}</p>
+                        
+                        ${data.stats ? `
+                            <div class="space-y-3">
+                                ${data.stats.map(s => `
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-6 h-6 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 text-xs font-bold">✓</div>
+                                        <span class="text-sm font-medium text-slate-700">${s}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                    
+                    <div class="bg-indigo-50/50 rounded-2xl p-6 md:p-8 flex flex-col items-center justify-center min-h-[400px]">
+                        ${renderVisualComponent(data)}
+                    </div>
+                </div>
+            `;
+
+            // Initialize Charts
+            if (data.viz.startsWith('chart-')) {
+                initChart(data);
+            }
+        }
+
+        function renderVisualComponent(data) {
+            if (data.viz === 'message-view') {
+                return `
+                    <div class="w-full max-w-sm space-y-4">
+                        <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-indigo-500">
+                            <p class="text-xs text-slate-400 mb-1">류용수 선생님 피드백</p>
+                            <p class="text-sm font-medium">"민준 학생, 오늘 미분 계수 파트에서 문제 해석 속도가 개선되었습니다. 다만 수식 정리 과정에서 계산 실수가 잦으니 오답 노트 2회 반복 필수입니다."</p>
+                        </div>
+                        <div class="bg-indigo-900 text-white p-4 rounded-xl shadow-lg ml-8">
+                            <p class="text-xs opacity-70 mb-1">학습 매니저 보고</p>
+                            <p class="text-sm">[알림] 민준 학생 오답 누적 관리 리포트가 단톡방에 업로드되었습니다.</p>
+                        </div>
+                        <div class="flex justify-center mt-4">
+                            <span class="text-xs text-slate-400">실시간 개인 관리 단톡방 목업</span>
+                        </div>
+                    </div>
+                `;
+            } else if (data.viz === 'timeline-view') {
+                return `
+                    <div class="w-full max-w-sm space-y-6">
+                        <div class="relative pl-8 border-l-2 border-indigo-200">
+                            <div class="absolute -left-2 top-0 w-4 h-4 rounded-full bg-indigo-500"></div>
+                            <h5 class="font-bold text-sm">1주차 ~ 2주차</h5>
+                            <p class="text-xs text-slate-500">학습 집중 기간 및 데이터 누적</p>
+                        </div>
+                        <div class="relative pl-8 border-l-2 border-indigo-200">
+                            <div class="absolute -left-3 -top-1 w-6 h-6 rounded-full bg-indigo-900 flex items-center justify-center text-white text-[10px]">NOW</div>
+                            <h5 class="font-bold text-sm text-indigo-900">3주차 (상담 주간)</h5>
+                            <p class="text-xs text-indigo-600 font-semibold">전문적인 방향성 설정 및 학부모 미팅</p>
+                        </div>
+                        <div class="relative pl-8 border-l-2 border-indigo-200 opacity-40">
+                            <div class="absolute -left-2 top-0 w-4 h-4 rounded-full bg-slate-300"></div>
+                            <h5 class="font-bold text-sm">4주차</h5>
+                            <p class="text-xs text-slate-500">월말 분석 및 다음 달 과제 설계</p>
+                        </div>
+                    </div>
+                `;
+            } else if (data.viz === 'grid-view') {
+                return `
+                    <div class="grid grid-cols-2 gap-4 w-full max-w-md">
+                        <div class="bg-white p-4 rounded-xl text-center shadow-sm">
+                            <div class="text-2xl mb-1">🩺</div>
+                            <p class="text-xs font-bold">의예과 멘토</p>
+                            <p class="text-[10px] text-slate-400">최상위권 시간관리</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl text-center shadow-sm border border-indigo-100">
+                            <div class="text-2xl mb-1">🦁</div>
+                            <p class="text-xs font-bold">공과대 멘토</p>
+                            <p class="text-[10px] text-slate-400">수학적 논리 설계</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl text-center shadow-sm">
+                            <div class="text-2xl mb-1">🏛️</div>
+                            <p class="text-xs font-bold">경영대 멘토</p>
+                            <p class="text-[10px] text-slate-400">전과목 효율 공부법</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl text-center shadow-sm border border-indigo-100">
+                            <div class="text-2xl mb-1">🎓</div>
+                            <p class="text-xs font-bold">사범대 멘토</p>
+                            <p class="text-[10px] text-slate-400">멘탈 및 동기부여</p>
+                        </div>
+                    </div>
+                `;
+            }
+            return `
+                <div class="chart-container">
+                    <canvas id="chart-${data.id}"></canvas>
+                </div>
+                ${data.id === 'balance' ? `
+                    <div class="mt-6 w-full max-w-xs">
+                        <label class="text-xs text-slate-500 block mb-2 text-center">나의 수학 집중도 조절</label>
+                        <input type="range" min="30" max="80" value="50" step="5" 
+                               class="w-full h-2 bg-indigo-200 rounded-lg appearance-none cursor-pointer accent-indigo-600"
+                               oninput="updateBalanceChart(this.value)">
+                    </div>
+                ` : ''}
+                <p class="text-xs text-slate-400 mt-4 text-center">${data.chartLabel}</p>
+            `;
+        }
+
+        function initChart(data) {
+            const ctx = document.getElementById(`chart-${data.id}`).getContext('2d');
+            
+            if (activeChart) activeChart.destroy();
+
+            let config = {};
+            
+            if (data.id === 'qna') {
+                config = {
+                    type: 'bar',
+                    data: {
+                        labels: ['개념 미숙', '계산 실수', '해석 오류', '시간 부족', '심화 응용'],
+                        datasets: [{
+                            label: '질문 빈도',
+                            data: [35, 15, 25, 10, 15],
+                            backgroundColor: 'rgba(30, 27, 75, 0.8)',
+                            borderRadius: 10
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: { x: { grid: { display: false } } }
+                    }
+                };
+            } else if (data.id === 'exam') {
+                config = {
+                    type: 'radar',
+                    data: {
+                        labels: ['계산 복잡도', '개념 융합', '준킬러 난이도', '킬러 변별력', '유형 참신함'],
+                        datasets: [{
+                            label: '해당 학교 시험 DNA',
+                            data: [80, 95, 70, 85, 60],
+                            backgroundColor: 'rgba(79, 70, 229, 0.2)',
+                            borderColor: 'rgb(79, 70, 229)',
+                            pointBackgroundColor: 'rgb(79, 70, 229)'
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        scales: { r: { angleLines: { display: false }, suggestedMin: 0, suggestedMax: 100 } }
+                    }
+                };
+            } else if (data.id === 'balance') {
+                config = {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['수학', '국어', '영어', '탐구'],
+                        datasets: [{
+                            data: [50, 20, 15, 15],
+                            backgroundColor: ['#1e1b4b', '#4f46e5', '#818cf8', '#e2e8f0'],
+                            hoverOffset: 4
+                        }]
+                    },
+                    options: { maintainAspectRatio: false }
+                };
+            }
+
+            activeChart = new Chart(ctx, config);
+        }
+
+        function updateBalanceChart(value) {
+            if (currentId !== 'balance' || !activeChart) return;
+            const mathVal = parseInt(value);
+            const others = (100 - mathVal) / 3;
+            activeChart.data.datasets[0].data = [mathVal, others, others, others];
+            activeChart.update();
+        }
+
+        // Run
+        window.onload = initApp;
+    </script>
+</body>
+</html>
